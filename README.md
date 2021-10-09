@@ -4,3 +4,4 @@ Un gestor de salas de estudios colaborativas creados para el proyecto de IWG-101
 - Sebastián Torrealba
 - Benjamin Paicil
 - Vicente Vizcarra 
+- Bruno Bonati
