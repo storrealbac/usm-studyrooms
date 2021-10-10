@@ -5,7 +5,7 @@ def project_license():
         "about/licencia.html",
         title="Licencia",
         color_fondo="bg-red-400"
-    )
+    ).replace("&quot;", "\"")
 
 def usage_guide():
     return render_template(
