@@ -15,6 +15,42 @@
     color: #FFE8D6;
 }
 
+/* Pseudoelements */
+
+/* Hover */
+.hover\:text-color-smokyblack {
+    color: #171513;
+}
+
+.hover\:text-color-xanadu {
+    color: #747967;
+}
+
+.hover\:text-color-sonicsilver {
+    color: #7A6E66;
+}
+
+.hover\:text-color-champagnepink {
+    color: #FFE8D6;
+}
+
+/* Focus */
+.focus\:text-color-smokyblack {
+    color: #171513;
+}
+
+.focus\:text-color-xanadu {
+    color: #747967;
+}
+
+.focus\:text-color-sonicsilver {
+    color: #7A6E66;
+}
+
+.focus\:text-color-champagnepink {
+    color: #FFE8D6;
+}
+
 /* Background colors*/
 .bg-color-smokyblack {
     background-color: #171513;

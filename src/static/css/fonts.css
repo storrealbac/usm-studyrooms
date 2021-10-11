@@ -1,4 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Yeseva+One&family=Staatliches&family=Lobster&PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* New fonts */
+@font-face { 
+    font-family: "new-spirit";
+    font-style: "normal";
+    font-weight: 400;
+    src: url(https://use.typekit.net/af/69c2f9/00000000000000007735c4ba/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2");
+}
+
+@font-face { 
+    font-family: "new-spirit";
+    font-style: "bold";
+    font-weight: 400;
+    src: url(https://use.typekit.net/af/5d8142/00000000000000007735c4c0/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2");
+}
+
 .font-lobster {
     font-family: 'Lobster', cursive;
 }
@@ -17,4 +33,12 @@
 
 .font-yeseva-one {
     font-family: 'Yeseva One', cursive;
+}
+
+.font-new-spirit-normal {
+    font-family: 'new-spirit', normal;
+}
+
+.font-new-spirit-bold {
+    font-family: 'new-spirit', bold;
 }
