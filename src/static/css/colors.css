@@ -1,0 +1,33 @@
+/* Text colors */
+.text-color-smokyblack {
+    color: #171513;
+}
+
+.text-color-xanadu {
+    color: #747967;
+}
+
+.text-color-sonicsilver {
+    color: #7A6E66;
+}
+
+.text-color-champagnepink {
+    color: #FFE8D6;
+}
+
+/* Background colors*/
+.bg-color-smokyblack {
+    background-color: #171513;
+}
+
+.bg-color-xanadu {
+    background-color: #747967;
+}
+
+.bg-color-sonicsilver {
+    color: #7A6E66;
+}
+
+.bg-color-champagnepink {
+    color: #FFE8D6;
+}
