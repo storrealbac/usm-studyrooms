@@ -4,5 +4,5 @@ def home():
     return render_template(
         "home/inicio.html",
         title="USM Studyrooms",
-        color_fondo="bg-red-400"
+        color_fondo="bg-red-500"
     )

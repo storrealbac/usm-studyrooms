@@ -1,3 +1,8 @@
+<!-- Importing macros -->
+{% from "macros/return_page.html" import return_page %}
+{% from "macros/footer.html" import footer %}
+
+<!-- File macros -->
 {% macro license_title(title='title') -%}
     <h1 class="text-center text-2xl p-5 font-andada">{{title}}</h1>
 {%- endmacro %}
@@ -8,9 +13,12 @@
 
 {% extends 'layout/base.html' %}
 {% block content %}
+
+{{return_page("/")}}
+
 <div class="mt-5 ml-4 mr-4 mb-5 rounded bg-white">
-    <h1 class="text-5xl pt-10 font-yeseva-one"> GNU GENERAL PUBLIC LICENSE </h1>
-    <h2 class="text-3xl font-andada">Version 3, 29 June 2007</h2>
+    <h1 class="text-5xl pt-10 font-yeseva-one text-center"> GNU GENERAL PUBLIC LICENSE </h1>
+    <h2 class="text-3xl font-andada text-center">Version 3, 29 June 2007</h2>
 
     <p class="mt-5 text-center pt-5 text-lg font-andada">
         Copyright (C) 2007 Free Software Foundation, Inc. <a href ="https://fsf.org">&lthttps://fsf.org&gt</a>
@@ -694,6 +702,6 @@ terms of section 4, provided that you also meet all of these conditions:')}}
     Public License instead of this License.  But first, please read
     &lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.'|safe)}}
 
-
 </div>
+
 {% endblock %}
