@@ -1,11 +1,12 @@
 {% extends 'layout/base.html' %}
 {% block content %}
-    <div class="grid h-screen">
+    <div class="flex h-screen">
+        <img src={{ url_for('static',filename='img/cafesketch.png')}} alt="Cafe skectch" class="m-auto hidden lg:block">
         <form class="m-auto">
+            <img src={{ url_for('static',filename='img/logo.png')}} alt="USM Studyrooms" class="w-96 md:-mt-40"/>
+            <h1 class="font-new-spirit-normal text-6xl text-color-smokyblack">Inicio</h1>
 
-            <h1 class="font-lobster text-6xl text-color-smokyblack">Studyrooms</h1>
-
-            <div class="grid w-96 bg-white rounded">
+            <div class="grid w-96 m-auto bg-white rounded">
 
                 <label class="block" for="crear-sala">
                     <h1 class="font-pt-sans mt-7 text-color-smokyblack">Crear una sala</h1>
