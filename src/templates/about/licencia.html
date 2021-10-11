@@ -1,22 +1,29 @@
+<!-- Importing macros -->
+{% from "macros/return_page.html" import return_page %}
+
+<!-- File macros -->
 {% macro license_title(title='title') -%}
-    <h1 class="text-center text-2xl p-5 font-andada">{{title}}</h1>
+    <h1 class="text-center text-color-smokyblack ext-2xl p-5 font-andada">{{title}}</h1>
 {%- endmacro %}
 
 {% macro license_paragraph(text='text') -%}
-    <p class="text-justify pl-20 pr-20 pb-5 text-lg font-andada"> {{text}} </p>
+    <p class="text-justify pl-20 pr-20 pb-5 text-lg font-andada text-color-smokyblack"> {{text}} </p>
 {%- endmacro %}
 
 {% extends 'layout/base.html' %}
 {% block content %}
+
+{{return_page("/")}}
+
 <div class="mt-5 ml-4 mr-4 mb-5 rounded bg-white">
-    <h1 class="text-5xl pt-10 font-yeseva-one"> GNU GENERAL PUBLIC LICENSE </h1>
+    <h1 class="text-5xl pt-10 font-yeseva-one text-color-smokyblack"> GNU GENERAL PUBLIC LICENSE </h1>
     <h2 class="text-3xl font-andada">Version 3, 29 June 2007</h2>
 
-    <p class="mt-5 text-center pt-5 text-lg font-andada">
+    <p class="mt-5 text-center pt-5 text-lg font-andada text-color-smokyblack">
         Copyright (C) 2007 Free Software Foundation, Inc. <a href ="https://fsf.org">&lthttps://fsf.org&gt</a>
     </p>
 
-    <p class="mt-5 text-center text-lg font-andada"> 
+    <p class="mt-5 text-center text-lg font-andada text-color-smokyblack"> 
         Everyone is permitted to copy and distribute verbatim copies
         of this license document, but changing it is not allowed.
     </p>

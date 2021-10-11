@@ -1,0 +1,69 @@
+/* Text colors */
+.text-color-smokyblack {
+    color: #171513;
+}
+
+.text-color-xanadu {
+    color: #747967;
+}
+
+.text-color-sonicsilver {
+    color: #7A6E66;
+}
+
+.text-color-champagnepink {
+    color: #FFE8D6;
+}
+
+/* Background colors*/
+.bg-color-smokyblack {
+    background-color: #171513;
+}
+
+.bg-color-xanadu {
+    background-color: #747967;
+}
+
+.bg-color-sonicsilver {
+    background-color: #7A6E66;
+}
+
+.bg-color-champagnepink {
+    background-color: #FFE8D6;
+}
+
+/*  Pseudoelements */
+
+/* Hover */
+.hover\:bg-color-smokyblack:hover {
+    background-color: #171513;
+}
+
+.hover\:bg-color-xanadu:hover {
+    background-color: #747967;
+}
+
+.hover\:bg-color-sonicsilver:hover {
+    background-color: #7A6E66;
+}
+
+.hover\:bg-color-champagnepink:hover {
+    background-color: #FFE8D6;
+}
+
+/* Focus */
+.focus\:bg-color-smokyblack:focus {
+    background-color: #171513;
+}
+
+.focus\:bg-color-xanadu:focus {
+    background-color: #747967;
+}
+
+.focus\:bg-color-sonicsilver:focus {
+    background-color: #7A6E66;
+}
+
+.focus\:bg-color-champagnepink:focus {
+    background-color: #FFE8D6;
+}
