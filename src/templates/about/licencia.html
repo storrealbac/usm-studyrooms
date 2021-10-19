@@ -3,11 +3,15 @@
 
 <!-- File macros -->
 {% macro license_title(title='title') -%}
-    <h1 class="text-center text-color-smokyblack text-2xl p-5 font-andada">{{title}}</h1>
+    <h1 class="text-center font-black mt-10 text-color-smokyblack text-3xl pb-2 font-andada">{{title}}</h1>
+    <img class="w-full md:w-2/5 h-10 mx-auto md:-mt-3 mb-5 object-cover" src="https://svgsilh.com/svg/1769669.svg" alt="Underline">
 {%- endmacro %}
 
 {% macro license_paragraph(text='text') -%}
-    <p class="text-justify pl-20 pr-20 pb-5 text-lg font-andada text-color-smokyblack"> {{text}} </p>
+    <p class="text-justify bg-white rounded-t pt-5 pl-20 pr-20 pb-5 text-lg font-andada text-color-smokyblack">
+        {{text}}
+    </p>
+    
 {%- endmacro %}
 
 {% extends 'layout/base.html' %}
@@ -15,18 +19,21 @@
 
 {{return_page("/")}}
 
-<div class="mt-5 ml-4 mr-4 mb-5 rounded bg-white">
-    <h1 class="text-5xl pt-10 font-yeseva-one text-color-smokyblack"> GNU GENERAL PUBLIC LICENSE </h1>
-    <h2 class="text-3xl font-andada">Version 3, 29 June 2007</h2>
+<div class="mt-5 ml-4 mr-4 mb-5 rounded">
 
-    <p class="mt-5 text-center pt-5 text-lg font-andada text-color-smokyblack">
-        Copyright (C) 2007 Free Software Foundation, Inc. <a href ="https://fsf.org">&lthttps://fsf.org&gt</a>
-    </p>
-
-    <p class="mt-5 text-center text-lg font-andada text-color-smokyblack"> 
-        Everyone is permitted to copy and distribute verbatim copies
-        of this license document, but changing it is not allowed.
-    </p>
+    <div class="bg-white pb-10 rounded">
+        <h1 class="text-5xl pt-10 font-yeseva-one text-color-smokyblack"> GNU GENERAL PUBLIC LICENSE </h1>
+        <h2 class="text-3xl font-andada">Version 3, 29 June 2007</h2>
+    
+        <p class="mt-5 text-center pt-5 text-lg font-andada text-color-smokyblack">
+            Copyright (C) 2007 Free Software Foundation, Inc. <a href ="https://fsf.org">&lthttps://fsf.org&gt</a>
+        </p>
+    
+        <p class="mt-5 text-center text-lg font-andada text-color-smokyblack"> 
+            Everyone is permitted to copy and distribute verbatim copies
+            of this license document, but changing it is not allowed.
+        </p>
+    </div>
 
 
     <!-- Titulo -->
@@ -643,9 +650,10 @@ terms of section 4, provided that you also meet all of these conditions:')}}
     Program, unless a warranty or assumption of liability accompanies a
     copy of the Program in return for a fee.')}}
 
+    
     {{license_title('END OF TERMS AND CONDITIONS')}}
 
-    <p class="mt-5 text-center text-lg font-andada"> 
+    <p class="mt-5 text-center text-lg mb-5 font-andada"> 
         How to Apply These Terms to Your New Programs
     </p>
 
@@ -701,6 +709,8 @@ terms of section 4, provided that you also meet all of these conditions:')}}
     Public License instead of this License.  But first, please read
     &lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.'|safe)}}
 
-
 </div>
+
+<div class="pb-20"></div>
+
 {% endblock %}
