@@ -1,6 +1,76 @@
+<!-- Importing macros -->
+{% from "macros/return_page.html" import return_page %}
+
+<!-- File macros -->
+{% from "macros/title_text.html" import title_text %}
+
+{% from "macros/paragraph_text.html" import paragraph_text %}
+
 {% extends 'layout/base.html' %}
 {% block content %}
-<div class="mt-5 rounded bg-white">
-    <h1 class="text-5xl font-yeseva-one"> DESARROLLADORES </h1>
-</div>
+
+
+{{return_page("/")}}
+
+<div class="mt-5 ml-4 mr-4 mb-5 rounded">
+    <div class="bg-white pb-10 rounded">
+        <h1 class="text-5xl pt-10 font-andada text-color-smokyblack"> Desarrolladores </h1>
+    </div>
+
+
+    <!-- Titulo -->
+    {{title_text("¿Quiénes somos?")}}
+
+
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="text-center">
+        <img src="https://avatars.githubusercontent.com/u/83615350?v=4" alt="Foto Seba" class="m-auto w-60 rounded-full"/>   
+        <h1 class="text-center font-black mt-10 text-color-smokyblack text-3xl pb-2 font-andada">Sebastian Torrealba</h1>
+        <p>
+            "Dios creador a base de Tailwind 
+            (recien lo aprendi a ocupar), "cabros
+            lo logre, pucha que soy bacan", tito eres dios."
+        </p>
+        </div>
+        
+        <div class="text-center">
+        <img src="https://avatars.githubusercontent.com/u/92215346?v=4" alt="Foto Tito" class="m-auto w-60 rounded-full"/> 
+        <h1 class="text-center font-black mt-10 text-color-smokyblack text-3xl pb-2 font-andada">Vicente Vizcarra</h1>   
+        <p>
+            "Los calladitos son los peores, no me gusta eso
+            pero no dire nada al respecto, trabajo desde las
+            sombras."
+        </p>
+        </div>
+        
+        <div class="text-center">
+        <img src="https://avatars.githubusercontent.com/u/91765691?v=4" alt="Foto Benja" class="m-auto w-60 rounded-full"/>
+        <h1 class="text-center font-black mt-10 text-color-smokyblack text-3xl pb-2 font-andada">Benjamin Paicil</h1>   
+        <p>
+            "El panita fruity del team, unificador
+            de naciones, bot del Seba."
+        </p>
+        </div>
+        
+        <div class="text-center">
+        <img src="https://avatars.githubusercontent.com/u/91765641?v=4" alt="Foto Bruno" class="m-auto w-60 rounded-full"/>
+        <h1 class="text-center font-black mt-10 text-color-smokyblack text-3xl pb-2 font-andada">Bruno Bonati</h1>   
+        <p>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua."
+        </p>
+        </div>
+        
+    </div>
+
+ 
+    
+    
+    
+
+
+
+<div class="pb-20"></div>
 {% endblock %}
