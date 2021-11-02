@@ -21,10 +21,10 @@ Esta la lista de cosas y elementos que haremos en el transcurso de proyecto, con
 - [ ] Crear la vista de la creación de salas
   - [ ] Crear el formulario de creación de salas
     - [ ] Duración de la sala despues de desconexión
-    - [ ] Nombre de la sala
-    - [ ] Nombre del creador de la sala
+    - [X] Nombre de la sala
+    - [X] Nombre del creador de la sala
     - [ ] Captcha (Se podria usar el de Google o otro alternativo)
-    - [ ] Botón de crear sala
+    - [X] Botón de crear sala
     - [ ] Cantidad máxima de personas
     - [ ] Diseño responsive
       - [ ] sm
@@ -50,5 +50,7 @@ Esta la lista de cosas y elementos que haremos en el transcurso de proyecto, con
     - [ ] Caja de escritura (Textbox)
     - [ ] Feedback de escritura (Typing... , etc)
 
+  # Temporales
+  - [ ] Sacar las macros del license.html y cambiarlas por las nuevas de la carpeta macros
 ## Backend
 - A definir ... 

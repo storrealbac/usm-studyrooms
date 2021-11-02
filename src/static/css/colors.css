@@ -18,36 +18,36 @@
 /* Pseudoelements */
 
 /* Hover */
-.hover\:text-color-smokyblack {
+.hover\:text-color-smokyblack:hover {
     color: #171513;
 }
 
-.hover\:text-color-xanadu {
+.hover\:text-color-xanadu:hover {
     color: #747967;
 }
 
-.hover\:text-color-sonicsilver {
+.hover\:text-color-sonicsilver:hover {
     color: #7A6E66;
 }
 
-.hover\:text-color-champagnepink {
+.hover\:text-color-champagnepink:hover {
     color: #FFE8D6;
 }
 
 /* Focus */
-.focus\:text-color-smokyblack {
+.focus\:text-color-smokyblack:focus {
     color: #171513;
 }
 
-.focus\:text-color-xanadu {
+.focus\:text-color-xanadu:focus {
     color: #747967;
 }
 
-.focus\:text-color-sonicsilver {
+.focus\:text-color-sonicsilver:focus {
     color: #7A6E66;
 }
 
-.focus\:text-color-champagnepink {
+.focus\:text-color-champagnepink:focus {
     color: #FFE8D6;
 }
 
