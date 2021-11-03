@@ -1,9 +1,14 @@
+<!-- Importing macros -->
+{% from "macros/return_page.html" import return_page %}
+
 {% extends 'layout/base.html' %}
 {% block content %}
-<div class="flex h-screen ">
-    <div class="m-auto w-96 sm:w-1/2 h-3/4 bg-white rounded">
 
-        <h1 class="font-new-spirit-normal m-8 text-4xl text-color-smokyblack"> CREACIÓN DE SALA</h1>
+<div class="flex h-screen">
+
+    <div class="m-auto w-96 md:w-1/2 bg-white rounded">
+
+        <h1 class="font-new-spirit-normal m-8 text-4xl text-color-smokyblack">CREACIÓN DE SALA</h1>
 
         <!-- Nombre de sala -->
         <label class="block text-left ml-10 mb-1" for="unirse-sala">
@@ -11,8 +16,8 @@
         </label>
         <input 
             class="w-11/12 mb-5 bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
-            placeholder="Inserte el nombre aquí"
-            maxlength="6"
+            placeholder="Escriba el nombre aquí"
+            maxlength="12"
         />
 
 
@@ -22,8 +27,19 @@
         </label>
         <input 
             class="w-11/12 mb-5 bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
-            placeholder="Inserte tu nombre aquí"
-            maxlength="6"
+            placeholder="Escriba su nombre aquí"
+            maxlength="12"
+        />
+
+        <!-- Contraseña de sala -->
+        <label class="block text-left ml-10 mb-1" for="unirse-sala">
+            <h1>Contraseña de la sala</h1>
+        </label>
+        <input 
+            class="w-11/12 mb-5 bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
+            placeholder="Escriba aquí su contraseña"
+            maxlength="16"
+            type="password"
         />
 
         <div class="grid grid-cols-2 w-11/12 m-auto gap-8">
@@ -31,15 +47,16 @@
             <!-- Cantidad de personas de sala (Dropdown) -->
             <div class="text-center">
                 <label class="block" for="cantidad-sala">
-                    <h1>Cantidad de personas en la sala</h1>
+                    <h1>Cantidad maxima de personas</h1>
                 </label>
-                <div x-data="{show: false}" @click.away="show = false" >
-                    <button @click="show = ! show" :class="show ? '' : 'rounded-b' " class="w-full border-0 block bg-color-xanadu bg-blue-600 rounded-t px-6 py-2 overflow-hidden focus:outline-none focus:border-white">
+                <div x-data="menuPersonas()" @click.away="cambiarEstado()">
+                    <button @click="show = !show" :class="show ? '' : 'rounded-b' " class="w-full border-0 block bg-color-xanadu bg-blue-600 rounded-t px-6 py-2 overflow-hidden focus:outline-none focus:border-white">
                         <div class="flex justify-center">
-                            <span class="text-white">
-                                Cantidad maxima de personas
-                            </span>
-                                <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+
+                            <!-- La cantidad se maneja por el componente -->
+                            <p class="text-white" x-text="cantidad_str"></p>
+
+                            <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                                 <path d="M7 10l5 5 5-5z" />
                                 <path d="M0 0h24v24H0z" fill="none" />
                             </svg>
@@ -47,18 +64,18 @@
                     </button>
 
                     <div x-show="show" class="bg-white rounded shadow-xl relative">
-                        <a href="#" class="absolute text-white right-0 left-0 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a href="#" x-on:click="mostrarCantidad(3)" class="absolute text-white right-0 left-0 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             3 personas
                         </a>
-                        <a href="#" class="absolute text-white right-0 left-0 top-8 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a href="#" x-on:click="mostrarCantidad(5)" class="absolute text-white right-0 left-0 top-8 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             5 personas
                         </a>
 
-                        <a href="#" class="absolute text-white right-0 left-0 top-16 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a href="#" x-on:click="mostrarCantidad(7)" class="absolute text-white right-0 left-0 top-16 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             7 personas
                         </a>
 
-                        <a href="#" class="absolute text-white rounded-b right-0 left-0 top-24 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a href="#" x-on:click="mostrarCantidad(10)" class="absolute text-white rounded-b right-0 left-0 top-24 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             10 personas
                         </a>
                         
@@ -70,22 +87,49 @@
             <!-- Cantidad de minutos de sala -->
             <div class="text-center">
                 <label class="block" for="nombre-usuario">
-                    <h1>Cantidad de minutos de duración de la sala</h1>
+                    <h1>Duración de la sala despues de desconexión</h1>
                 </label>
                 <input 
                     class="w-full bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
-                    placeholder="Inserte tu nombre aquí"
-                    maxlength="6"
+                    placeholder="Escriba aquí la cantidad de minutos"
+                    maxlength="2"
                     type="text"
+                    onkeypress="return isNumberKey(event)"
                 />
             </div>
-
         </div>
 
-        <button class="bg-color-xanadu px-4 w-56 mt-10 mb-10 hover:bg-color-sonicsilver text-white py-2 ml-10 mr-10 rounded">
+
+        <button class="bg-color-xanadu px-4 w-56 mt-16 mb-16 hover:bg-color-sonicsilver text-white py-2 rounded">
             Crear la sala
         </button>
 
     </div>
 </div>
+
+<script>
+    // Componente del dropdown
+    const menuPersonas = () => {
+        return {
+            show: false,
+            cantidad: 0,
+            cantidad_str: "Seleccione cantidad",
+
+            mostrarCantidad(cantidad_clickeada) {
+                this.cantidad_str = `${String(cantidad_clickeada)} personas`;
+            },
+
+            cambiarEstado() {
+                this.show = !this.show;
+            }
+        }
+    }
+
+    const isNumberKey = (evt) => {
+        let charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && charCode < 48 || charCode > 57)
+            return false;
+        return true;
+    }
+</script>
 {% endblock %}

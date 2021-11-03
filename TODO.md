@@ -20,15 +20,16 @@ Esta la lista de cosas y elementos que haremos en el transcurso de proyecto, con
 
 - [ ] Crear la vista de la creación de salas
   - [ ] Crear el formulario de creación de salas
-    - [ ] Duración de la sala despues de desconexión
+    - [X] Duración de la sala despues de desconexión
     - [X] Nombre de la sala
     - [X] Nombre del creador de la sala
+    - [X] Contraseña de la sala
     - [ ] Captcha (Se podria usar el de Google o otro alternativo)
     - [X] Botón de crear sala
-    - [ ] Cantidad máxima de personas
+    - [X] Cantidad máxima de personas
     - [ ] Diseño responsive
       - [ ] sm
-      - [ ] md
+      - [X] md
       - [ ] lg
       - [ ] xl
 - [ ] Crear la vista de salas de estudio
