@@ -6,18 +6,23 @@
 
 <div class="flex h-screen">
 
-    <div class="m-auto w-96 md:w-1/2 bg-white rounded">
+    <div x-data="creacionSala()" class="m-auto w-11/12 lg:w-1/2 bg-white rounded">
 
-        <h1 class="font-new-spirit-normal m-8 text-4xl text-color-smokyblack">CREACIÓN DE SALA</h1>
+        <h1 class="font-new-spirit-normal m-8 text-4xl text-color-smokyblack">
+            CREACIÓN DE SALA
+        </h1>
+
+        <img class="w-4/5 mx-auto object-cover h-12 -mt-8" src={{ url_for('static',filename='img/undertitles/4.png')}} alt="Underline">
 
         <!-- Nombre de sala -->
         <label class="block text-left ml-10 mb-1" for="unirse-sala">
             <h1>Nombre de la sala</h1>
         </label>
-        <input 
+        <input
+            x-model="nombre_sala" 
             class="w-11/12 mb-5 bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
             placeholder="Escriba el nombre aquí"
-            maxlength="12"
+            maxlength="16"
         />
 
 
@@ -25,10 +30,11 @@
         <label class="block text-left ml-10 mb-1 mb-1" for="unirse-sala">
             <h1>Tu nombre de usuario</h1>
         </label>
-        <input 
+        <input
+            x-model="nombre_usuario"
             class="w-11/12 mb-5 bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
             placeholder="Escriba su nombre aquí"
-            maxlength="12"
+            maxlength="16"
         />
 
         <!-- Contraseña de sala -->
@@ -36,6 +42,7 @@
             <h1>Contraseña de la sala</h1>
         </label>
         <input 
+            x-model="password_sala"
             class="w-11/12 mb-5 bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
             placeholder="Escriba aquí su contraseña"
             maxlength="16"
@@ -49,12 +56,12 @@
                 <label class="block" for="cantidad-sala">
                     <h1>Cantidad maxima de personas</h1>
                 </label>
-                <div x-data="menuPersonas()">
-                    <button @click="cambiarEstado()" :class="show ? '' : 'rounded-b' " class="w-full border-0 block bg-color-xanadu bg-blue-600 rounded-t px-6 py-2 overflow-hidden focus:outline-none focus:border-white">
+                <div>
+                    <button @click="cambiarEstadoDropdown()" :class="mostrar_dropdown ? '' : 'rounded-b' " class="w-full border-0 block bg-color-xanadu bg-blue-600 rounded-t px-6 py-2 overflow-hidden focus:outline-none focus:border-white">
                         <div class="flex justify-center">
 
                             <!-- La cantidad se maneja por el componente -->
-                            <p class="text-white" x-text="cantidad_str"></p>
+                            <p class="text-white" x-text="cantidad_maxima_str"></p>
 
                             <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                                 <path d="M7 10l5 5 5-5z" />
@@ -63,19 +70,19 @@
                         </div>
                     </button>
 
-                    <div x-show="show" class="bg-white rounded shadow-xl relative">
-                        <a href="#" x-on:click="mostrarCantidad(3)" class="absolute text-white right-0 left-0 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                    <div x-show="mostrar_dropdown" class="bg-white rounded shadow-xl relative">
+                        <a x-on:click="cambiarCantidadMaxima(3)" class="absolute cursor-pointer text-white right-0 left-0 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             3 personas
                         </a>
-                        <a href="#" x-on:click="mostrarCantidad(5)" class="absolute text-white right-0 left-0 top-8 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a x-on:click="cambiarCantidadMaxima(5)" class="absolute cursor-pointer text-white right-0 left-0 top-8 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             5 personas
                         </a>
 
-                        <a href="#" x-on:click="mostrarCantidad(7)" class="absolute text-white right-0 left-0 top-16 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a x-on:click="cambiarCantidadMaxima(7)" class="absolute cursor-pointer text-white right-0 left-0 top-16 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             7 personas
                         </a>
 
-                        <a href="#" x-on:click="mostrarCantidad(10)" class="absolute text-white rounded-b right-0 left-0 top-24 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
+                        <a x-on:click="cambiarCantidadMaxima(10)" class="absolute cursor-pointer text-white rounded-b right-0 left-0 top-24 block px-4 py-1 bg-color-sonicsilver hover:bg-white hover:text-color-smokyblack" >
                             10 personas
                         </a>
                         
@@ -89,7 +96,8 @@
                 <label class="block" for="nombre-usuario">
                     <h1>Duración de la sala despues de desconexión</h1>
                 </label>
-                <input 
+                <input
+                    x-model="duracion_desconexion"
                     class="w-full bg-color-xanadu text-center focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded placeholder-white"
                     placeholder="Escriba aquí la cantidad de minutos"
                     maxlength="2"
@@ -99,8 +107,7 @@
             </div>
         </div>
 
-
-        <button class="bg-color-xanadu px-4 w-56 mt-16 mb-16 hover:bg-color-sonicsilver text-white py-2 rounded">
+        <button x-on:click="validar()" class="bg-color-xanadu px-4 w-56 mt-16 mb-16 hover:bg-color-sonicsilver text-white py-2 rounded-full">
             Crear la sala
         </button>
 
