@@ -27,11 +27,12 @@ Esta la lista de cosas y elementos que haremos en el transcurso de proyecto, con
     - [ ] Captcha (Se podria usar el de Google o otro alternativo)
     - [X] Botón de crear sala
     - [X] Cantidad máxima de personas
-    - [ ] Diseño responsive
-      - [ ] sm
+    - [X] Validación de los datos
+    - [X] Diseño responsive
+      - [X] sm
       - [X] md
-      - [ ] lg
-      - [ ] xl
+      - [X] lg
+      - [X] xl
 - [ ] Crear la vista de salas de estudio
   - [ ] Crear la barra superior de widgets/configuración
     - [ ] Crear plantilla para barra de widgets
@@ -52,6 +53,8 @@ Esta la lista de cosas y elementos que haremos en el transcurso de proyecto, con
     - [ ] Feedback de escritura (Typing... , etc)
 
   # Temporales
-  - [ ] Sacar las macros del license.html y cambiarlas por las nuevas de la carpeta macros
+  - [X] Sacar las macros del license.html y cambiarlas por las nuevas de la carpeta macros
+  - [ ] Cambiar el undertitle de desarrolladores y poner la vizcacha
+  - [ ] Agregar Sweetalert para alertas interactivas
 ## Backend
 - A definir ... 
