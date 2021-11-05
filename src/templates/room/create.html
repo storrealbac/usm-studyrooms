@@ -49,8 +49,8 @@
                 <label class="block" for="cantidad-sala">
                     <h1>Cantidad maxima de personas</h1>
                 </label>
-                <div x-data="menuPersonas()" @click.away="cambiarEstado()">
-                    <button @click="show = !show" :class="show ? '' : 'rounded-b' " class="w-full border-0 block bg-color-xanadu bg-blue-600 rounded-t px-6 py-2 overflow-hidden focus:outline-none focus:border-white">
+                <div x-data="menuPersonas()">
+                    <button @click="cambiarEstado()" :class="show ? '' : 'rounded-b' " class="w-full border-0 block bg-color-xanadu bg-blue-600 rounded-t px-6 py-2 overflow-hidden focus:outline-none focus:border-white">
                         <div class="flex justify-center">
 
                             <!-- La cantidad se maneja por el componente -->
@@ -107,29 +107,5 @@
     </div>
 </div>
 
-<script>
-    // Componente del dropdown
-    const menuPersonas = () => {
-        return {
-            show: false,
-            cantidad: 0,
-            cantidad_str: "Seleccione cantidad",
-
-            mostrarCantidad(cantidad_clickeada) {
-                this.cantidad_str = `${String(cantidad_clickeada)} personas`;
-            },
-
-            cambiarEstado() {
-                this.show = !this.show;
-            }
-        }
-    }
-
-    const isNumberKey = (evt) => {
-        let charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && charCode < 48 || charCode > 57)
-            return false;
-        return true;
-    }
-</script>
+<script src={{ url_for('static',filename='js/room/create.js')}}></script>
 {% endblock %}
