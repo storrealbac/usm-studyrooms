@@ -1,3 +1,5 @@
+
+// Alpine Component
 const creacionSala = () => {
     return {
         nombre_sala: "",
@@ -24,6 +26,7 @@ const creacionSala = () => {
             this.cantidad_maxima = Number(cantidad_clickeada);
             //console.log(this.cantidad_maxima);
             this.cantidad_maxima_str = `${String(cantidad_clickeada)} personas`;
+            this.cambiarEstadoDropdown();
         },
 
         cambiarEstadoDropdown() {
@@ -46,24 +49,33 @@ const creacionSala = () => {
 
             // Validar el nombre del usuario
             if (this.nombre_usuario.length < 3 || this.nombre_usuario.length > 16 && typeof(this.nombre_usuario) == "string")
-                datos_invalidos.push("El nombre de usuario es muy corto, tiene que ser mayor a 3 caracteres")
+                datos_invalidos.push("El nombre de usuario es muy corto")
 
             if (this.password_sala.length < 3 || this.password_sala.length > 16 && typeof(this.password_sala) == "string")
-                datos_invalidos.push("La contraseña es muy corta, tiene que ser mayor a 3 caracteres")
+                datos_invalidos.push("La contraseña es muy corta")
             
-            if (this.duracion_desconexion < 0 || this.duracion_desconexion > 99 && typeof(this.duracion_desconexion) == "number")
-                datos_invalidos.push("La duración no puede ser negativa o mayor a 99, pillin");
+            if (this.duracion_desconexion < 3 || this.duracion_desconexion > 99 && typeof(this.duracion_desconexion) == "number")
+                datos_invalidos.push("Los minutos no pueden ser menores a 3");
 
             if (cantidades_permitidas.indexOf(this.cantidad_maxima) == -1 && typeof(this.cantidad_maxima) == "number")
-                datos_invalidos.push("Seleccione una cantidad máxima");
+                datos_invalidos.push("Seleccione una cantidad máxima de personas");
 
             if (datos_invalidos.length == 0) {
                 // Todos los datos son validos
                 alert("Todos los datos son validados correctamente")
             } else {
+
                 // Algun dato está mal puesto
-                alert("Hay datos mal puestos, revisar la consola")
-                console.table(datos_invalidos);
+                createRoomAlert.fire({
+                    imageUrl: "/static/img/error.png",
+                    imageHeight: 250,
+                    title: "La vizcacha se aburre...",
+                    text: "No todos los valores dados son correctos",
+                    footer: datos_invalidos.join("</br>"),
+                    confirmButtonText: "Aceptar"
+                });
+
+                //console.table(datos_invalidos);
             }
 
             this.debugLog();
@@ -78,3 +90,4 @@ const isNumberKey = (evt) => {
         return false;
     return true;
 }
+
