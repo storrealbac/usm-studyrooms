@@ -54,7 +54,7 @@ Esta la lista de cosas y elementos que haremos en el transcurso de proyecto, con
 
   # Temporales
   - [X] Sacar las macros del license.html y cambiarlas por las nuevas de la carpeta macros
-  - [ ] Cambiar el undertitle de desarrolladores y poner la vizcacha
-  - [ ] Agregar Sweetalert para alertas interactivas
+  - [X] Cambiar el undertitle de desarrolladores y poner la vizcacha
+  - [X] Agregar Sweetalert para alertas interactivas
 ## Backend
 - A definir ... 
