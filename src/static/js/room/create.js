@@ -38,6 +38,11 @@ const creacionSala = () => {
         validar() {
             this.duracion_desconexion = Number(this.duracion_desconexion);
 
+
+            // En caso de que quieran buguear con strings
+            if (isNaN(this.duracion_desconexion))
+                this.duracion_desconexion = 0;
+
             const cantidades_permitidas = [3, 5, 7, 10]
             
             // Lista de todos los datos invalidos
@@ -57,13 +62,14 @@ const creacionSala = () => {
             if (this.duracion_desconexion < 3 || this.duracion_desconexion > 99 && typeof(this.duracion_desconexion) == "number")
                 datos_invalidos.push("Los minutos no pueden ser menores a 3");
 
-            if (cantidades_permitidas.indexOf(this.cantidad_maxima) == -1 && typeof(this.cantidad_maxima) == "number")
+            if (cantidades_permitidas.indexOf(this.cantidad_maxima) == -1) {
                 datos_invalidos.push("Seleccione una cantidad máxima de personas");
+            }
 
             if (datos_invalidos.length == 0) {
                 // Todos los datos son validos
                 alert("Todos los datos son validados correctamente")
-            } else {
+            } else {    
 
                 // Algun dato está mal puesto
                 createRoomAlert.fire({
