@@ -6,16 +6,23 @@ from views.error import page_not_found, internal_server_error
 from views.about import project_license, usage_guide, project_developers
 from views.rooms import rooms_creating
 
+# API Blueport
+from api.api import api
+
 app = Flask(__name__)
 
+# API Blueprint
+app.register_blueprint(api, url_prefix="/api")
+
+
 # Main routes
-app.add_url_rule("/", view_func=home)
-app.add_url_rule("/licencia", view_func=project_license)
-app.add_url_rule("/guia", view_func=usage_guide)
-app.add_url_rule("/desarrolladores", view_func=project_developers)
+app.add_url_rule("/", view_func=home, methods=["GET"])
+app.add_url_rule("/licencia", view_func=project_license, methods=["GET"])
+app.add_url_rule("/guia", view_func=usage_guide, methods=["GET"])
+app.add_url_rule("/desarrolladores", view_func=project_developers, methods=["GET"])
 
 # Rooms
-app.add_url_rule("/room/create", view_func=rooms_creating)
+app.add_url_rule("/room/create", view_func=rooms_creating, methods=["GET"])
 
 # HTTP Error View Handlers
 app.register_error_handler(404, page_not_found)
