@@ -4,7 +4,7 @@ from flask import Flask, render_template
 from views.home import home
 from views.error import page_not_found, internal_server_error
 from views.about import project_license, usage_guide, project_developers
-from views.rooms import rooms_creating
+from views.rooms import rooms_creating, room_screen
 
 # API Blueport
 from api.api import api
@@ -26,6 +26,7 @@ app.add_url_rule("/desarrolladores", view_func=project_developers, methods=["GET
 
 # Rooms
 app.add_url_rule("/room/create", view_func=rooms_creating, methods=["GET"])
+app.add_url_rule("/room", view_func=room_screen, methods=["GET"])
 
 # HTTP Error View Handlers
 app.register_error_handler(404, page_not_found)

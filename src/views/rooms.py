@@ -6,3 +6,10 @@ def rooms_creating():
         title="Creando sala",
         color_fondo="bg-color-champagnepink"
     )
+
+def room_screen():
+    return render_template(
+        "room/room_screen.html",
+        title="Room",
+        color_fondo="bg-color-champagnepink"
+    )
