@@ -9,6 +9,9 @@ from views.rooms import rooms_creating
 # API Blueport
 from api.api import api
 
+# MongoDB
+from database.database import db
+
 app = Flask(__name__)
 
 # API Blueprint
@@ -27,6 +30,10 @@ app.add_url_rule("/room/create", view_func=rooms_creating, methods=["GET"])
 # HTTP Error View Handlers
 app.register_error_handler(404, page_not_found)
 app.register_error_handler(500, internal_server_error)
+
+
+# MongoDB
+db.init_app(app)
 
 if __name__ == "__main__":
     app.debug = True
