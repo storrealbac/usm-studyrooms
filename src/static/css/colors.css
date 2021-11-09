@@ -63,10 +63,19 @@
 .bg-color-sonicsilver {
     background-color: #7A6E66;
 }
-
+/*  Champagnepink tones */
 .bg-color-champagnepink {
     background-color: #FFE8D6;
 }
+
+.bg-color-champagnepink-palid {
+    background-color: #FFF9F4;
+}
+
+.bg-color-champagnepink-white-palid {
+    background-color: #F1EAEF;
+}
+
 
 /*  Pseudoelements */
 
