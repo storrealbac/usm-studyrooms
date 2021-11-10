@@ -112,3 +112,8 @@
 .focus\:bg-color-champagnepink:focus {
     background-color: #FFE8D6;
 }
+
+/* Borders */
+.border-xanadu {
+    border-color: #747967;
+}

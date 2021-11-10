@@ -3,7 +3,7 @@
 <div class="h-screen w-screen bg-blue-400" style="background-image: url('https://images4.alphacoders.com/804/80484.jpg');">
 
     <!-- Barra superior  -->
-    <div class="flex bg-color-champagnepink items-center w-full sm:w-11/12 xl:w-2/5 h-16 rounded top-1 mx-auto inset-x-0 fixed">
+    <div class="flex bg-color-champagnepink items-center w-full sm:w-11/12 lg:w-3/5 2xl:w-2/5 h-16 rounded top-1 mx-auto inset-x-0 fixed">
 
         <!-- Widget Section-->
         <div class="w-3/5 grid grid-cols-4 mt-1">
@@ -44,8 +44,8 @@
         <!-- Info section -->
         <div class="w-1/5 grid grid-cols-1">
             <a href="#" class="m-auto">
-                <h1 class="text-color-xanadu font-staatliches text-2xl">TEAM VIZCACHA</h1>
-                <h1 class="text-color-xanadu font-staatliches text-2xl">#SSD92</h1>
+                <h1 class="text-color-xanadu font-staatliches text-tiny sm:text-base md:text-lg lg:text-xl xl:text-2xl">TEAM VIZCACHA</h1>
+                <h1 class="text-color-xanadu font-staatliches text-tiny sm:text-base md:text-lg lg:text-xl xl:text-2xl">#SSD92</h1>
             </a>
         </div>
 
@@ -60,67 +60,110 @@
         </div>
     </div>
 
-    <!-- Ventana del chat -->
-    <div class="fixed w-3/5 md:w-2/5 xl:w-1/5 top-28 bottom-28 left-1 my-auto rounded inset-y-0 bg-color-champagnepink">
-        
 
-
-        <!-- Mensajes -->
-        <div class="h-4/5 rounded">
-            <div class="h-1/12 flex bg-color-xanadu rounded-t text-white">
-                <h1 class="font-staatliches text-2xl m-auto">CHAT</h1>
-                
-                <a href="#" class="h-8 w-8 my-auto absolute right-1 top-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                    </svg>
-                </a>
-            </div>
-
-            <div class="w-full h-11/12 bottom-0 overflow-auto bg-color-champagnepink">
-                <!-- Mensaje de texto -->
-                <div class="bg-color-champagnepink-palid rounded-3xl m-2">
-                    <h1 class="pt-1 pl-4 font-bold text-color-smokyblack">Benjamín Paicil: </h1>
-                    <h1 class="pl-3 pr-3 pb-2 text-color-smokyblack">Este es el entregable numero 1</h1>
-                </div>
-
-                <!-- Mensaje de texto -->
-                <div class="bg-color-champagnepink-palid rounded-3xl m-2">
-                    <h1 class="pt-1 pl-4 font-bold text-color-smokyblack">Sebastían Torrealba: </h1>
-                    <h1 class="pl-3 pr-3 pb-2 text-color-smokyblack">Y vamos re avanzados</h1>
-                </div>
-
-                <!-- Mensaje de texto -->
-                <div class="bg-color-champagnepink-palid rounded-3xl m-2">
-                    <h1 class="pt-1 pl-4 font-bold text-color-smokyblack">Vicente Vizcarra: </h1>
-                    <h1 class="pl-3 pr-3 pb-2 text-color-smokyblack">Espero que les guste</h1>
-                </div>
-
-                <!-- Mensaje de texto -->
-                <div class="bg-color-champagnepink-palid rounded-3xl m-2">
-                    <h1 class="pt-1 pl-4 font-bold text-color-smokyblack">Bruno Bonati: </h1>
-                    <h1 class="pl-3 pr-3 pb-2 text-color-smokyblack">Gracias!</h1>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Cuadro de texto -->
-        <div class="h-1/5 block flex rounded-b bg-color-xanadu">
-            <textarea 
-                class="mx-auto w-11/12 m-4 rounded p-2 resize-none"
-                placeholder="Mensaje a la sala"
+    <div x-data="{show_chat: true}">
+        <button 
+            class="fixed bg-color-champagnepink ml-2 inset-y-0 my-auto h-20 w-20 rounded-full border-xanadu border-4"
+            x-data="botonToggleChat()"
+            x-on:click="toggleChat()"
+            x-show="!show_chat"
+        >
+            <h1 class="text-3xl font-staatliches text-color-xanadu">CHAT</h1>
+            <div 
+                class="text-sm absolute top-0 bg-color-xanadu -right-2 bg-red-500 rounded-full h-7 w-7 flex"
+                x-show="not_seen_messages > 0"
             >
-            </textarea>
+                <h1 
+                    class="m-auto text-color-champagnepink"
+                    x-text="not_seen_messages"
+                >
+                    123
+                </h1>
+            </div>
+        </button>
 
-            <a href="" class="absolute flex h-10 w-10 rounded-full right-5 bottom-5 text-color-xanadu">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </a>
+
+        <!-- Ventana del chat -->
+        <div 
+            x-data="chatComponent()" 
+            class="fixed w-3/5 md:w-2/5 xl:w-1/5 top-28 bottom-28 left-1 my-auto rounded inset-y-0 bg-color-champagnepink"
+            x-show="show_chat"
+        >
+
+            <!-- Mensajes -->
+            <div class="h-4/5 rounded">
+                <div 
+                    class="h-1/12 flex bg-color-xanadu rounded-t text-white"
+                    x-ref="messages"
+                >
+                    <h1 class="font-staatliches text-2xl m-auto">CHAT</h1>
+                    
+                    <button
+                        class="h-8 w-8 my-auto absolute right-1 top-2"
+                        x-on:click="show_chat = false"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div 
+                    class="w-full h-11/12 bottom-0 overflow-auto bg-color-champagnepink"
+                    id="chat"
+                >
+
+                    <!-- Los mensajes -->
+                    <template x-if="messages.length > 0">
+                        <template
+                            x-for="message in messages"
+                        >
+                            <div 
+                                class="bg-color-champagnepink-palid rounded-3xl m-2"
+                                x-init="$nextTick( () => {scrollBottom()});"
+                            >
+                                <h1 x-text="message.username" class="pt-1 pl-4 font-bold text-color-smokyblack"></h1>
+                                <h1 x-text="message.text" class="pl-3 pr-3 text-color-smokyblack"></h1>
+                                <h1 x-text="message.time" class="pb-2 mr-3 text-xs text-gray-500 text-right"></h1>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Si no hay mensajes-->
+                    <template x-if="messages.length == 0">
+                        <div class="mt-20 text-center">
+                            <h1 class="my-auto text-2xl font-staatliches text-color-xanadu ml-5 mr-5">Están concentrados parece...</h1>
+                            <p class="font-andada text-color-xanadu ml-5 mr-5">Recuerda que puedes hablar en el chat con tus compañeros</p>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+
+            <!-- Cuadro de texto -->
+            <div class="h-1/5 block flex rounded-b bg-color-xanadu">
+                <textarea
+                    x-model="textarea_message"
+                    x-on:keydown.enter="send()"
+                    x-on:keydown.enter.prevent
+                    class="mx-auto w-11/12 m-4 rounded p-2 resize-none"
+                    placeholder="Mensaje a la sala"
+                >
+                </textarea>
+
+                <button 
+                    class="absolute flex h-10 w-10 rounded-full right-5 bottom-5 text-color-xanadu"
+                    x-on:click="send()"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
+            </div>
         </div>
-
 
     </div>
 </div>
+
+<script src={{ url_for('static',filename='js/room/room_screen.js')}}></script>
 {% endblock %}
