@@ -32,6 +32,8 @@ const chatComponent = () => {
             socket.on("chat", (data) => {
                 console.log(data);
                 this.messages.push(data);
+                if (!this.show_chat)
+                    this.not_seen_messages += 1
             })
         }, 
         
@@ -70,7 +72,6 @@ const chatComponent = () => {
 
 const botonToggleChat = () => {
     return {
-        not_seen_messages: 0,
         toggleChat() {
             this.not_seen_messages = 0;
             this.show_chat = true;
