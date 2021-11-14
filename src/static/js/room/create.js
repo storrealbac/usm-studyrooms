@@ -1,4 +1,7 @@
 
+// SocketIO
+
+
 // Alpine Component
 const creacionSala = () => {
     return {
@@ -68,11 +71,14 @@ const creacionSala = () => {
 
             if (datos_invalidos.length == 0) {
                 // Todos los datos son validos
-                alert("Todos los datos son validados correctamente")
+                //alert("Todos los datos son validados correctamente")
+                createRoomRequest(this.nombre_sala, this.nombre_usuario, this.password_sala, this.cantidad_maxima, this.duracion_desconexion)
+                
+
             } else {    
 
                 // Algun dato está mal puesto
-                createRoomAlert.fire({
+                errorAlert.fire({
                     imageUrl: "/static/img/error.png",
                     imageHeight: 250,
                     title: "La vizcacha se aburre...",
@@ -88,6 +94,25 @@ const creacionSala = () => {
         }
 
     }
+}
+
+const createRoomRequest = async (room_name, owner_name, room_password, room_maxusers, room_timeout) => {
+
+    // Request data
+    let url_request = "/api/create?"
+    url_request += `name=${room_name}`
+    url_request += `&owner=${owner_name}`
+    url_request += `&password=${room_password}`
+    url_request += `&max_users=${room_maxusers}`
+    url_request += `&room_timeout=${room_timeout}`
+
+    const room_request = await fetch(url_request, {
+        method: "POST"
+    });
+    
+   await room_request.json();
+   window.location.href = "../room"
+
 }
 
 const isNumberKey = (evt) => {

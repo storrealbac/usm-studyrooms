@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
+from flask_socketio import SocketIO, join_room, leave_room, emit
 
 # Views
 from views.home import home
@@ -13,6 +14,12 @@ from api.api import api
 from database.database import db
 
 app = Flask(__name__)
+app.secret_key = "RANDOMSECRETKEY"
+app.config["SECRET_KEY"] = "RANDOMSECRETKEY_SOCKETIO"
+
+# SocketIO Server
+socketio = SocketIO(app)
+
 
 # API Blueprint
 app.register_blueprint(api, url_prefix="/api")
@@ -32,10 +39,23 @@ app.add_url_rule("/room", view_func=room_screen, methods=["GET"])
 app.register_error_handler(404, page_not_found)
 app.register_error_handler(500, internal_server_error)
 
-
 # MongoDB
 db.init_app(app)
+
+
+# SocketIO
+@socketio.on("connect")
+def on_connect(auth):
+    room_id = session["room-id"]
+    join_room(room_id)
+
+@socketio.on("chat")
+def on_chat(data):
+    room_id = session["room-id"]
+    emit("chat", data, room=room_id)
+    print(data)
 
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
+    socketio.run(app)

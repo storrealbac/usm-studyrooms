@@ -1,9 +1,14 @@
+const socket = io();
+socket.on("connect", () => {
+    console.log("Me conecté al server satisfactoriamente");
+});
+
 // Chat component
 const chatComponent = () => {
+
     return {
         textarea_message: "",
         messages: [],
-
         getChatTime(actual_date) {
 
             fecha = new Date;
@@ -23,6 +28,13 @@ const chatComponent = () => {
             return `${hour}:${minutes}`;
         },
 
+        receive() {
+            socket.on("chat", (data) => {
+                console.log(data);
+                this.messages.push(data);
+            })
+        }, 
+        
         send() {
 
             // Si el mensaje está vacio, ignorar
@@ -36,15 +48,13 @@ const chatComponent = () => {
 
             this.debug()
 
-            // Agremos al final de la lista
-            this.messages.push(
-                {
-                    username: "Juan Perez",
-                    text: this.textarea_message,
-                    time: this.getChatTime(Date.now())
-                }
-            );
+            message_data = {
+                username: window.room_settings.username,
+                text: this.textarea_message,
+                time: this.getChatTime(Date.now())
+            }
 
+            socket.emit("chat", message_data)
             this.textarea_message = ""
         },
 
@@ -72,3 +82,4 @@ const botonToggleChat = () => {
 
     }
 }
+

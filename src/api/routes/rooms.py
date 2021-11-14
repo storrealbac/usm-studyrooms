@@ -1,4 +1,4 @@
-from flask import request, jsonify, abort
+from flask import request, jsonify, session, redirect, escape
 from nanoid import generate
 
 # Utils
@@ -120,6 +120,11 @@ def createRoom():
     owner_user.save()
     room.save()
 
+    # Creación de la sesión
+    session["room-id"] = room_id
+    session["user-id"] = owner_id
+    session["room-password"] = password
+
     # Si está todo validado termina
     return jsonify({
         "status_code": 200,
@@ -198,6 +203,11 @@ def joinRoom():
     # Guardar al usuario
     join_room.save()
 
+    # Creación de la sesión
+    session["room-id"] = room_id
+    session["user-id"] = user_id
+    session["room-password"] = room_password
+
     # Si validó todos los datos, entonces
     return jsonify({
         "status": 200,
@@ -260,4 +270,30 @@ def leaveRoom():
 
 def deleteRoom():
     return "Deleting"
+
+def roomExist():
+    if "room_id" not in request.args:
+        return jsonify({
+            "status_code": 400,
+            "error": "No está definido el room_id"
+        }), 400
+
+
+    room_id = request.args["room_id"]
+    try:
+        Room.objects.get(room_id=room_id)
+        return jsonify({
+            "status_code": 200,
+            "msg": "La sala existe"
+        }), 200
+    except:
+        return jsonify({
+            "status_code": 400,
+            "error": "La sala no existe"
+        }), 400
+    
+    return jsonify({
+        "status_code": 500,
+        "error": "Internal server error"
+    }), 500
 

@@ -44,8 +44,8 @@
         <!-- Info section -->
         <div class="w-1/5 grid grid-cols-1">
             <a href="#" class="m-auto">
-                <h1 class="text-color-xanadu font-staatliches text-tiny sm:text-base md:text-lg lg:text-xl xl:text-2xl">TEAM VIZCACHA</h1>
-                <h1 class="text-color-xanadu font-staatliches text-tiny sm:text-base md:text-lg lg:text-xl xl:text-2xl">#SSD92</h1>
+                <h1 class="text-color-xanadu font-staatliches text-tiny sm:text-base md:text-lg lg:text-xl xl:text-xl">{{room_name}}</h1>
+                <h1 class="text-color-xanadu font-staatliches text-tiny sm:text-base md:text-lg lg:text-xl xl:text-xl">#{{room_id}}</h1>
             </a>
         </div>
 
@@ -88,6 +88,7 @@
             x-data="chatComponent()" 
             class="fixed w-3/5 md:w-2/5 xl:w-1/5 top-28 bottom-28 left-1 my-auto rounded inset-y-0 bg-color-champagnepink"
             x-show="show_chat"
+            x-init="receive()"
         >
 
             <!-- Mensajes -->
@@ -165,5 +166,15 @@
     </div>
 </div>
 
+<script>
+    var room_settings = {
+        room_id: "{{room_id}}",
+        room_password: "{{room_password}}",
+        user_id: "{{user_id}}",
+        username: "{{username}}"
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script src={{ url_for('static',filename='js/room/room_screen.js')}}></script>
 {% endblock %}

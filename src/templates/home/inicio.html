@@ -18,13 +18,18 @@
                     Crear sala
                 </a>
 
+      
                 <label class="block" for="unirse-sala">
                     <h1>Unirse a una sala</h1>
                 </label>
-                <input 
+                <input
+                    x-data="joinComponent()"
+                    x-model="join_roomid"
+                    x-on:keydown.enter.prevent
                     class="bg-color-xanadu text-center px-4 mb-10 focus:bg-color-sonicsilver focus:placeholder-opacity-0 text-white py-2 rounded ml-10 mr-10 placeholder-white"
                     placeholder="Inserte su código aquí"
-                    maxlength="6"
+                    maxlength="5"
+                    x-on:keydown.enter="join()"
                 />
 
                 <div class="grid grid-cols-3 mt-6 mb-3">
@@ -35,4 +40,5 @@
             </div>
         </div>
     </div>
+<script src={{url_for('static', filename='js/home/home.js')}}></script>
 {% endblock %}
