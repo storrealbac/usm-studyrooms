@@ -60,6 +60,63 @@
         </div>
     </div>
 
+    <!-- Draggable div -->
+    <div 
+        id="dragdiv"
+        class="fixed bg-color-champagnepink h-72 w-72 z-10 rounded top-16 left-16"
+    >
+        <div class="w-full bg-color-xanadu rounded-t">
+            <h1 class="font-staatliches text-xl text-white m-auto text-center">
+                Música
+            </h1>
+
+            <!-- Cerrar -->
+            <button class="absolute top-1 right-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <iframe 
+            src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3"
+            width="288"
+            height="260" 
+            frameborder="0"
+            allowtransparency="true"
+            allow="encrypted-media"
+            class="rounded-b block m-auto"
+        ></iframe>
+    </div>
+
+    <!-- Draggable div -->
+    <div 
+        id="dragdiv2"
+        class="fixed bg-color-champagnepink h-72 w-72 z-10 rounded top-32 left-32"
+    >
+        <div class="w-full bg-color-xanadu rounded-t">
+            <h1 class="font-staatliches text-xl text-white m-auto text-center">
+                VIDEO
+            </h1>
+
+            <!-- Cerrar -->
+            <button class="absolute top-1 right-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <iframe 
+            width="288"
+            height="260"
+            src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1&mute=1"
+            frameborder="0"
+            allowfullscreen
+            class="rounded-b"
+        >
+        </iframe> 
+    </div>
 
     <div x-data="{show_chat: true, not_seen_messages: 0}">
         <button 
