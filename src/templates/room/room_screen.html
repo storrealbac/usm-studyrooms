@@ -3,42 +3,57 @@
 <div class="h-screen w-screen bg-blue-400" style="background-image: url('https://images4.alphacoders.com/804/80484.jpg');">
 
     <!-- Barra superior  -->
-    <div class="flex bg-color-champagnepink items-center w-full sm:w-11/12 lg:w-3/5 2xl:w-2/5 h-16 rounded top-1 mx-auto inset-x-0 fixed">
+    <div 
+        class="flex bg-color-champagnepink items-center w-full sm:w-11/12 lg:w-3/5 2xl:w-2/5 h-16 rounded top-1 mx-auto inset-x-0 fixed"
+        x-data="barraSuperiorComponent()"    
+    >
 
         <!-- Widget Section-->
         <div class="w-3/5 grid grid-cols-4 mt-1">
             <!-- Widget música-->
-            <a href="#" class="m-auto rounded">
+            <button 
+                class="m-auto rounded"
+                x-on:click="onSpotifyClick()"
+            >
                 <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="spotify" class="h-8 w-8 mx-auto text-color-xanadu" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
                     <path fill="currentColor" d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"></path>
                 </svg>
                 <h1 class="text-color-xanadu font-staatliches">Música</h1>
-            </a>
+            </button>
 
             <!-- Widget Pomodoro -->
-            <a href="#" class="m-auto rounded">
+            <button 
+                class="m-auto rounded"
+                x-on:click="onPomodoroClick()"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-color-xanadu" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
                 </svg>
                 <h1 class="text-color-xanadu font-staatliches">Pomodoro</h1>
-            </a>
+            </button>
 
             <!-- Widget To do list-->
-            <a href="#" class="m-auto rounded">
+            <button 
+                class="m-auto rounded"
+                x-on:click="onPendingClick()"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-color-xanadu" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                     <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                 </svg>
                 <h1 class="text-color-xanadu font-staatliches">Pendientes</h1>
-            </a>
+            </button>
 
             <!-- Widget Video -->
-            <a href="#" class="m-auto rounded">
+            <button 
+                class="m-auto rounded"
+                x-on:click="onYoutubeClick()"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-color-xanadu" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                 </svg>
                 <h1 class="text-color-xanadu font-staatliches">Video</h1>
-            </a>
+            </button>
         </div>
 
         <!-- Info section -->
@@ -79,43 +94,15 @@
         </div>
         
         <iframe 
-            src="https://open.spotify.com/embed/playlist/5YKm5Zt0AUdKrlrvWzUV6l"
+            src="https://open.spotify.com/embed/playlist/2r6fT59fsmWCjAsWyq2PxA"
             width="288"
             height="260" 
             frameborder="0"
             allowtransparency="true"
             allow="encrypted-media"
             class="rounded-b block m-auto"
+            id="spotifyPlayer"
         ></iframe>
-    </div>
-
-    <!-- Draggable div -->
-    <div 
-        id="dragdiv2"
-        class="fixed bg-color-champagnepink h-72 w-72 z-10 rounded top-32 left-32"
-    >
-        <div class="w-full bg-color-xanadu rounded-t">
-            <h1 class="font-staatliches text-xl text-white m-auto text-center">
-                VIDEO
-            </h1>
-
-            <!-- Cerrar -->
-            <button class="absolute top-1 right-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-
-        <iframe 
-            width="288"
-            height="260"
-            src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1&mute=1"
-            frameborder="0"
-            allowfullscreen
-            class="rounded-b"
-        >
-        </iframe> 
     </div>
 
     <div x-data="{show_chat: true, not_seen_messages: 0}">
