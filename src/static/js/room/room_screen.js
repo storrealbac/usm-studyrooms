@@ -223,8 +223,55 @@ const barraSuperiorComponent = () =>  {
         onPendingClick() {
             alert("Tocaste pending")
 
-        }
+        },
 
+        onConfigClick() {
+            configRoomAlert.fire({
+                html: `
+                
+                <h1 class="font-staatliches text-3xl m-auto"> CONFIGURACIÓN </h1>
+                <p class="font-staatliches text-lg m-auto mt-3 mb-3">Cambiar fondo: </p>
+            <div class="flex"> 
+                <div class="m-auto">
+                    <div class="flex items-center space-x-1 flex m-auto">
+                        <a href="#" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                            </svg>
+                        </a>
+
+                        <a href="#" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            1
+                        </a>
+                        <a href="#" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            2
+                        </a>
+                        <a href="#" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            3
+                        </a>
+                        <a href="#" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+
+
+                    <p class="font-staatliches text-lg m-auto mt-6 mb-3"> Cambiar cantidad de personas: </p>
+
+                    <div class="relative inline-block text-left">
+                        <div>
+                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-color-champagnepink text-sm font-medium text-color-xanadu hover:bg-color-xanadu hover:text-color-champagnepink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                            Cantidad
+                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            </button>
+                        </div>
+                    </div>
+                `,
+            });
+        }
     }
 }
 

@@ -28,3 +28,13 @@ const youtubeRoomAlert = Swal.mixin({
     buttonsStyling: false
     
 })
+
+const configRoomAlert = Swal.mixin({
+    customClass: {
+        input: "font-pt-sans text-color-smokyblack",
+        text: "font-pt-sans text-color-smokyblack",
+        confirmButton: "bg-color-xanadu px-4 hover:bg-color-sonicsilver text-white py-2 rounded-full"
+    },
+    buttonsStyling: false
+    
+})
