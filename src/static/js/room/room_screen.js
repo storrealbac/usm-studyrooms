@@ -4,6 +4,13 @@ socket.on("connect", () => {
     console.log("Me conecté al server satisfactoriamente");
 });
 
+// Estado global (componente global)
+const globalComponent = () => {
+    return {
+        show_spotifyplaylist: false
+    }
+}
+
 // Chat component
 const chatComponent = () => {
 
@@ -85,6 +92,7 @@ const botonToggleChat = () => {
     }
 }
 
+
 // Barra superior
 const existYoutubeVideo = async (url) => {
     const regexp_youtube_url = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
@@ -92,7 +100,6 @@ const existYoutubeVideo = async (url) => {
     if (!regexp_youtube_url.test(url))
         return false;
 
-    //ejemplo → https://www.youtube.com/watch?v=RfcLP-bvebI
     const video_id = url.split("v=")[1]
 
     let thumbnail = new Image();
@@ -114,7 +121,8 @@ const spawnYoutubeComponent = (youtube_url) => {
     const html_code = `
     <div 
         id=${element_id}
-        class="fixed bg-color-champagnepink h-72 w-72 z-10 rounded top-32 left-32"
+        class="fixed bg-color-champagnepink z-10 rounded top-32 left-32"
+        style="width:426px"
     >
         <div class="w-full bg-color-xanadu rounded-t">
             <h1 class="font-staatliches text-xl text-white m-auto text-center">
@@ -130,9 +138,9 @@ const spawnYoutubeComponent = (youtube_url) => {
         </div>
 
         <iframe 
-            width="288"
-            height="260"
-            src="https://www.youtube.com/embed/${video_id}?controls=1&mute=1"
+            width="426"
+            height="246"
+            src="https://www.youtube.com/embed/${video_id}?controls=2&mute=1"
             frameborder="0"
             allowfullscreen
             class="rounded-b"
@@ -146,13 +154,14 @@ const spawnYoutubeComponent = (youtube_url) => {
     dragElement(document.getElementById(element_id))
 }
 
+
 const barraSuperiorComponent = () =>  {
     return {
         spotify_playlist: "",
         youtube_video: "",
         
         onYoutubeClick() {
-            spotifyRoomAlert.fire({
+            youtubeRoomAlert.fire({
                 html: `
                 
                 <h1 class="font-staatliches text-3xl m-auto"> Ingrese la URL del video </h1>
@@ -196,18 +205,18 @@ const barraSuperiorComponent = () =>  {
                         // Si existe el video
                         spawnYoutubeComponent(youtubeurl_input.value)
                     }
-
                 }
             });
         },
 
         onSpotifyClick() {
-            alert("Tocaste spotify")
+            this.show_spotifyplaylist = !this.show_spotifyplaylist;
 
         },
 
         onPomodoroClick() {
             alert("Tocaste pomodoro")
+
 
         },
 
@@ -221,7 +230,11 @@ const barraSuperiorComponent = () =>  {
 
 
 /* Drag elements */
-dragElement(document.getElementById("dragdiv"))
+dragElement(document.getElementById("spotify-dragdiv"))
+dragElement(document.getElementById("pomodoro-dragdiv"))
+dragElement(document.getElementById("pending-dragdiv"))
+
+
 
 function dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;

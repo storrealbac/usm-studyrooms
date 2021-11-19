@@ -19,7 +19,7 @@ const joinRoomAlert = Swal.mixin({
     
 });
 
-const spotifyRoomAlert = Swal.mixin({
+const youtubeRoomAlert = Swal.mixin({
     customClass: {
         input: "font-pt-sans text-color-smokyblack",
         text: "font-pt-sans text-color-smokyblack",
