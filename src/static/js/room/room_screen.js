@@ -114,6 +114,85 @@ const deletePomodoro = (id) => {
     document.getElementById(`pomodoro-id-${id}`).remove();
 }
 
+const openPomodoroConfig = (id) => {
+    configRoomAlert.fire({
+        html: `
+        
+        <h1 class="font-staatliches text-3xl m-auto"> CONFIGURACIÓN POMODORO </h1>
+        <p class="font-staatliches text-lg m-auto mt-3 mb-3">Editar tiempos. </p>
+        <div class="grid grid-cols-3">
+            <div>
+                <p class="font-staatliches text-lg m-auto mt-3 mb-3">Work Time</p>
+                <div class="custom-number-input h-10 w-32">
+                    <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                        
+                        <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                            <span class="m-auto text-2xl font-thin">−</span>
+                        </button>
+                        
+                        <input type="text" 
+                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0">
+                        </input>
+                        
+                        <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                            <span class="m-auto text-2xl font-thin">+</span>
+                        </button>
+                    </div>
+                </div>
+            </div> 
+
+            <div>
+                <p class="font-staatliches text-lg m-auto mt-3 mb-3">Short Break</p>
+                <div class="custom-number-input h-10 w-32">
+                    <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                        
+                        <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                            <span class="m-auto text-2xl font-thin">−</span>
+                        </button>
+                        
+                        <input type="text" 
+                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0">
+                        </input>
+                        
+                        <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                            <span class="m-auto text-2xl font-thin">+</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p class="font-staatliches text-lg m-auto mt-3 mb-3">Long Break</p>
+                <div class="custom-number-input h-10 w-32">
+                    <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                        
+                        <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                            <span class="m-auto text-2xl font-thin">−</span>
+                        </button>
+                        
+                        <input type="text" 
+                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0">
+                        </input>
+                        
+                        <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                            <span class="m-auto text-2xl font-thin">+</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <label for="toggle-example" class="flex items-center cursor-pointer relative mb-4">
+        <input type="checkbox" id="toggle-example" class="sr-only">
+        <div class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
+        <span class="ml-3 text-gray-900 text-sm font-medium">Toggle me</span>
+        </label>
+        `,
+    });
+}
+
 const createPomodoro = () => {
     const p_id = pomodoro_ids;
 
@@ -157,7 +236,7 @@ const createPomodoro = () => {
                         id="pomodoro-state-id-${p_id}"
                         onclick="changePomodoroState(${p_id})"
                     > INICIAR </button>
-                    <button class="col-span-2">
+                    <button onclick="openPomodoroConfig(${p_id})" class="col-span-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-color-xanadu" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                         </svg>
@@ -411,6 +490,32 @@ const barraSuperiorComponent = () =>  {
 
         onPomodoroClick() {
             createPomodoro();
+            youtubeRoomAlert.fire({
+                html: `
+                
+                <h1 class="font-staatliches text-3xl m-auto"> SELECCIONES TIPO </h1>
+                <p> Debe seleccionar si quiere que el pomodoro sea personal o compartido.</p>
+                <div class="grid grid-cols-2 mt-3 mb-3">    
+                    <div>
+                        <p class="text-lg font-bold">Individual</p>
+                        <input 
+                            type="checkbox"
+                            class="m-auto">
+                        </input>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold">Compartido</p>
+                        <input 
+                            type="checkbox"
+                            class="m-auto">
+                        </input>
+                    </div>
+                </div>
+
+                <p class="italic text-center text-sm">Por defecto será individual.</p>                
+                `,
+                confirmButtonText: "Aceptar",
+            });
         },
 
         onPendingClick() {
