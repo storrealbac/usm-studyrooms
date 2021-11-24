@@ -327,15 +327,16 @@ let background_video_number = 1;
 
 const videos_fondo = [
     "https://external-preview.redd.it/aawTtrfaSsZ4vyF1zNgTLvhku-R3YPjm_7cDxY2kLmI.gif?format=mp4&s=a748600c54293d8be47583bf588d9d37d840a859",
-    "https://vod-progressive.akamaized.net/exp=1637691232~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1889%2F12%2F309448537%2F1190035294.mp4~hmac=faa75c30cde15aae861c232368856924845351e8b99ce0663023d579af0d5504/vimeo-prod-skyfire-std-us/01/1889/12/309448537/1190035294.mp4?download=1&filename=Pexels+Videos+1757800.mp4",
-    "https://vod-progressive.akamaized.net/exp=1637691318~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F685%2F13%2F328427476%2F1287380090.mp4~hmac=e6e50a3feb15d98016ab7efe99aaff13777d1a05c4cb8a18e3486ab63cad34a4/vimeo-prod-skyfire-std-us/01/685/13/328427476/1287380090.mp4?download=1&filename=Pexels+Videos+2098988.mp4",
-    "https://vod-progressive.akamaized.net/exp=1637691340~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4098%2F12%2F320492528%2F1242956976.mp4~hmac=2ceda64368a915d541e85bfb6cb047a879ee0441cbaece10ea2efc1252e5c351/vimeo-prod-skyfire-std-us/01/4098/12/320492528/1242956976.mp4?download=1&filename=Pexels+Videos+1970045.mp4"
+    "https://thumbs.gfycat.com/DifficultRecklessEidolonhelvum-mobile.mp4",
+    "https://thumbs.gfycat.com/ActivePiercingLeech-mobile.mp4",
+    "https://thumbs.gfycat.com/FamousCornyAustralianfreshwatercrocodile-mobile.mp4",
+    "https://vod-progressive.akamaized.net/exp=1637797259~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2653%2F14%2F363269983%2F1494223164.mp4~hmac=78ec0927c69486cee964e5bd161a19058d73ab32396d64bf8f2ce9588d7f3a94/vimeo-prod-skyfire-std-us/01/2653/14/363269983/1494223164.mp4?download=1&filename=video.mp4"
 ];
 
 const moveBackgroundVideo = (move) => {
 
     if (background_video_number == 1 && move == -1)
-        background_video_number = 4;
+        background_video_number = 5;
     else if (background_video_number == videos_fondo.length && move == 1)
         background_video_number = 1;
     else background_video_number += move;
@@ -636,6 +637,9 @@ const barraSuperiorComponent = () =>  {
                         </button>
                         <button onclick="changeVideo(4)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
                             4
+                        </button>
+                        <button onclick="changeVideo(5)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            5
                         </button>
                         <button onclick="moveBackgroundVideo(1)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
