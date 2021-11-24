@@ -5,7 +5,7 @@ socket.on("connect", () => {
 });
 
 socket.on("video-create", (data) => {
-    spawnYoutubeComponent(data.url, Date.now())
+    spawnYoutubeComponent(data.url, data.id)
 });
 
 socket.on("video-delete", (data) => {
@@ -19,6 +19,9 @@ const globalComponent = () => {
     }
 }
 
+function onYouTubeIframeAPIReady () {
+    console.log('La API de IFrame de YouTube está lista!');
+}
 
 // Saving pomodoro component data
 let all_pomodoros = new Map();
@@ -450,9 +453,8 @@ const deleteYoutubeVideo = (id) => {
     socket.emit("video-delete", {id: id});
 }
 
-const spawnYoutubeComponent = (youtube_url) => {
+const spawnYoutubeComponent = (youtube_url, created_id) => {
     const video_id = youtube_url.split("v=")[1]; 
-    const created_id = Date.now();
     const element_id = `youtube_${created_id}`;
 
     const html_code = `
@@ -474,21 +476,56 @@ const spawnYoutubeComponent = (youtube_url) => {
             </button>
         </div>
 
-        <iframe 
-            width="426"
-            height="246"
-            src="https://www.youtube.com/embed/${video_id}?controls=2&mute=1"
-            frameborder="0"
-            allowfullscreen
-            class="rounded-b"
-        >
-        </iframe> 
+        <div id="youtube-video-${created_id}"></div>
+        
     </div>
     `;
-
+    //w426 w246 class="rounded-b" allowfullscreen frameborder="0"
     // Add element to the DOM
     document.body.insertAdjacentHTML('beforeend', html_code);
+
+    var onPlayerReady = (event) => {
+        console.log(`Video: ${video_id} - Cargado satisfactoriamente`);
+    };
+
+    // { UNSTARTED: -1, ENDED: 0, PLAYING: 1, PAUSED: 2, BUFFERING: 3, CUED: 5 }
+    var onPlayerStateChange = (event) => {
+        
+
+        const paused = event.data == YT.PlayerState.PAUSED;
+        const played = event.data == YT.PlayerState.PLAYING;
+        const seconds = player.getCurrentTime();
+
+        console.log("------------------------------------------------");
+        console.log("Reproduciendo", played);
+        console.log("Pausando", paused);
+        console.log("Segundos", seconds);
+        console.log("------------------------------------------------");
+
+        if (paused || played)
+            socket.emit("video-manager", {paused, played, created_id, seconds})
+    }
+
+    socket.on(`video-manager-${created_id}`, (data) => {
+        if (data.paused) player.stopVideo();
+        if (data.played) player.playVideo();
+        player.seekTo(data.seconds);
+
+    });
+
+    const player = new YT.Player(`youtube-video-${created_id}`, {
+        height: 246,
+        width: 426,
+        videoId : video_id,
+        events : {
+            "onReady": onPlayerReady,
+            "onStateChange": onPlayerStateChange
+        }
+
+    });
+
     dragElement(document.getElementById(element_id))
+
 }
 
 const changeStateChecked = (id) => {
@@ -545,7 +582,10 @@ const barraSuperiorComponent = () =>  {
                     } else {
                         // Si existe el video
                         
-                        socket.emit("video-create", {url: youtubeurl_input.value});
+                        socket.emit("video-create", {
+                            url: youtubeurl_input.value,
+                            id: Date.now()
+                        });
                         //spawnYoutubeComponent(youtubeurl_input.value)
                     }
                 }
