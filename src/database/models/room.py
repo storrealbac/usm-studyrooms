@@ -18,6 +18,9 @@ class Room(db.Document):
     # ID de las personas detro de la sala
     all_usernames_id = ListField(StringField())
 
+    # Widgets
+    all_widgets = ListField(StringField())
+
 
     
 

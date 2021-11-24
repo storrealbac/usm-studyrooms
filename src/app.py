@@ -49,11 +49,22 @@ def on_connect(auth):
     room_id = session["room-id"]
     join_room(room_id)
 
+@socketio.on("video-create")
+def on_video_create(data):
+    room_id = session["room-id"]
+    emit("video-create", data, room=room_id)
+
+@socketio.on("video-delete")
+def on_video_create(data):
+    room_id = session["room-id"]
+    emit("video-delete", data, room=room_id)
+
+
 @socketio.on("chat")
 def on_chat(data):
     room_id = session["room-id"]
     emit("chat", data, room=room_id)
-    print(data)
+    #print(data)
 
 if __name__ == "__main__":
     app.debug = True
