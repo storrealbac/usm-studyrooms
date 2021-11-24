@@ -4,6 +4,14 @@ socket.on("connect", () => {
     console.log("Me conecté al server satisfactoriamente");
 });
 
+socket.on("video-create", (data) => {
+    spawnYoutubeComponent(data.url, Date.now())
+});
+
+socket.on("video-delete", (data) => {
+    document.getElementById(`youtube_${data.id}`).remove();
+});
+
 // Estado global (componente global)
 const globalComponent = () => {
     return {
@@ -13,7 +21,7 @@ const globalComponent = () => {
 
 
 // Saving pomodoro component data
-let all_pomodoros = []
+let all_pomodoros = new Map();
 
 
 class PomodoroComponent {
@@ -91,50 +99,57 @@ class PomodoroComponent {
     }
 
     timerRunner() {
-        setInterval( () => {
+        const interval_timer = setInterval( () => {
             if (this.running_time) {
                 if (this.actual_time == 0) {
                     this.changeState(false);
                     this.finished_audio.play();
                 } else this.actual_time -= 1;
 
-                this.update();
+                if (!this.update())
+                    clearInterval(interval_timer);
             }
         }, 1000);
     }
 
     update() {
+
         const timer = document.getElementById(`pomodoro-timer-id-${this.id}`);
+
+        if (timer == null)
+            return false;
+
         timer.innerHTML = this.getTime();
 
         const state = document.getElementById(`pomodoro-state-id-${this.id}`);
         state.innerHTML = this.stateString();
+
+        return true;
     }
 
 }
 
 // Pomodoro manager
-let pomodoro_ids = 1;
 
 const changePomodoroTime = (id, state) => {
-    all_pomodoros[id-1].setTime(state);
+    all_pomodoros[id].setTime(state);
 }
 
 const changePomodoroState = (id) => {
-    all_pomodoros[id-1].changeState(!all_pomodoros[id-1].running_time);
+    all_pomodoros[id].changeState(!all_pomodoros[id].running_time);
 }
 
 const deletePomodoro = (id) => {
-    all_pomodoros.splice(id-1, 1)
+    delete all_pomodoros[id];
     document.getElementById(`pomodoro-id-${id}`).remove();
 }
 
 const pomodoroChangeTimer = (id, operation, time_type) => {
     const element = document.getElementById(`pomodoro-config-${time_type}-id-${id}`);
 
-    if (Number(element.value) > 0) {
-        element.value = Number(element.value) + operation;
-        all_pomodoros[id-1].changeTime(operation, time_type);
+    if (Number(element.value) > 1 || operation == 1) {
+        element.value = Number(element.value)+operation;
+        all_pomodoros[id].changeTime(operation*60, time_type);
     }
 }
 
@@ -158,7 +173,7 @@ const openPomodoroConfig = (id) => {
                         
                             <input type="text" disabled
                                 class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-                                value="${all_pomodoros[id-1].work_time}"
+                                value="${all_pomodoros[id].work_time/60}"
                                 id="pomodoro-config-work-id-${id}"
                             >
                             </input>
@@ -187,7 +202,7 @@ const openPomodoroConfig = (id) => {
                         
                         <input type="text" disabled
                             class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-                            value="${all_pomodoros[id-1].short_time}"
+                            value="${all_pomodoros[id].short_time/60}"
                             id="pomodoro-config-short-id-${id}"
                         >
                         </input>
@@ -216,7 +231,7 @@ const openPomodoroConfig = (id) => {
                         
                         <input type="text" disabled
                             class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" 
-                            value="${all_pomodoros[id-1].long_time}"
+                            value="${all_pomodoros[id].long_time/60}"
                             id="pomodoro-config-long-id-${id}"
                         >
                         </input>
@@ -238,7 +253,7 @@ const openPomodoroConfig = (id) => {
 }
 
 const createPomodoro = () => {
-    const p_id = pomodoro_ids;
+    const p_id = Date.now();
 
     const html_code = `
     <!-- Draggable div (Pomodoro) -->
@@ -292,10 +307,8 @@ const createPomodoro = () => {
     `;
 
     document.body.insertAdjacentHTML('beforeend', html_code);
-    all_pomodoros.push(new PomodoroComponent(p_id));
-    dragElement(document.getElementById(`pomodoro-id-${p_id}`))
-
-    pomodoro_ids += 1
+    all_pomodoros[p_id] = new PomodoroComponent(p_id);
+    dragElement(document.getElementById(`pomodoro-id-${p_id}`));
 }
 
 
@@ -432,9 +445,14 @@ const existYoutubeVideo = async (url) => {
     return verifier;
 }
 
+const deleteYoutubeVideo = (id) => {
+    socket.emit("video-delete", {id: id});
+}
+
 const spawnYoutubeComponent = (youtube_url) => {
-    const video_id = youtube_url.split("v=")[1]
-    const element_id = `youtube_${video_id}`;
+    const video_id = youtube_url.split("v=")[1]; 
+    const created_id = Date.now();
+    const element_id = `youtube_${created_id}`;
 
     const html_code = `
     <div 
@@ -448,7 +466,7 @@ const spawnYoutubeComponent = (youtube_url) => {
             </h1>
 
             <!-- Cerrar -->
-            <button class="absolute top-1 right-1">
+            <button onclick="deleteYoutubeVideo(${created_id})" class="absolute top-1 right-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -472,6 +490,10 @@ const spawnYoutubeComponent = (youtube_url) => {
     dragElement(document.getElementById(element_id))
 }
 
+const changeStateChecked = (id) => {
+    const checkbox = document.getElementById(id);
+    checkbox.checked = !checkbox.checked;
+}
 
 const barraSuperiorComponent = () =>  {
     return {
@@ -521,7 +543,9 @@ const barraSuperiorComponent = () =>  {
                         });
                     } else {
                         // Si existe el video
-                        spawnYoutubeComponent(youtubeurl_input.value)
+                        
+                        socket.emit("video-create", {url: youtubeurl_input.value});
+                        //spawnYoutubeComponent(youtubeurl_input.value)
                     }
                 }
             });
@@ -533,7 +557,6 @@ const barraSuperiorComponent = () =>  {
         },
 
         onPomodoroClick() {
-            createPomodoro();
             youtubeRoomAlert.fire({
                 html: `
                 
@@ -544,14 +567,21 @@ const barraSuperiorComponent = () =>  {
                         <p class="text-lg font-bold">Individual</p>
                         <input 
                             type="checkbox"
-                            class="m-auto">
+                            checked
+                            class="m-auto"
+                            id="create-pomodoro-checkbox-1"
+                            onclick="changeStateChecked('create-pomodoro-checkbox-2')"
+                        >
                         </input>
                     </div>
                     <div>
-                        <p class="text-lg font-bold">Compartido</p>
+                        <p class="text-lg font-bold">Grupal</p>
                         <input 
                             type="checkbox"
-                            class="m-auto">
+                            class="m-auto"
+                            id="create-pomodoro-checkbox-2"
+                            onclick="changeStateChecked('create-pomodoro-checkbox-1')"
+                        >
                         </input>
                     </div>
                 </div>
@@ -559,6 +589,19 @@ const barraSuperiorComponent = () =>  {
                 <p class="italic text-center text-sm">Por defecto será individual.</p>                
                 `,
                 confirmButtonText: "Aceptar",
+                preConfirm: async () => {
+
+                    const individual  = document.getElementById("create-pomodoro-checkbox-1").checked;
+
+                    if (individual) {
+                        // individual
+                        createPomodoro()
+
+                    } else {
+                        // grupal
+                    }
+                    
+                }
             });
         },
 
@@ -606,7 +649,7 @@ const barraSuperiorComponent = () =>  {
 
                     <div class="relative inline-block text-left">
                         <div>
-                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-color-champagnepink text-sm font-medium text-color-xanadu hover:bg-color-xanadu hover:text-color-champagnepink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-color-champagnepink text-sm font-medium text-color-xanadu hover:bg-color-xanadu hover:text-color-champagnepink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 mb-4" id="menu-button" aria-expanded="true" aria-haspopup="true">
                             Cantidad
                             <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
