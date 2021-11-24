@@ -54,6 +54,14 @@ def on_video_create(data):
     room_id = session["room-id"]
     emit("video-create", data, room=room_id)
 
+@socketio.on("video-manager")
+def on_video_manager(data):
+    room_id = session["room-id"]
+    
+    video_id = data["created_id"]
+
+    emit(f"video-manager-{video_id}", data, room=room_id, include_self=False)
+
 @socketio.on("video-delete")
 def on_video_create(data):
     room_id = session["room-id"]
