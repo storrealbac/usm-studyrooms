@@ -476,7 +476,7 @@ const spawnYoutubeComponent = (youtube_url, created_id) => {
             </button>
         </div>
 
-        <div id="youtube-video-${created_id}"></div>
+        <div id="youtube-video-${created_id}" class="rounded-b" onclick="console.log('Tocado')"></div>
         
     </div>
     `;
@@ -486,30 +486,40 @@ const spawnYoutubeComponent = (youtube_url, created_id) => {
 
     var onPlayerReady = (event) => {
         console.log(`Video: ${video_id} - Cargado satisfactoriamente`);
+
     };
 
+    const allow_emit = false;
+
     // { UNSTARTED: -1, ENDED: 0, PLAYING: 1, PAUSED: 2, BUFFERING: 3, CUED: 5 }
+
+    let ignore_next = true;
+
     var onPlayerStateChange = (event) => {
         
-
         const paused = event.data == YT.PlayerState.PAUSED;
         const played = event.data == YT.PlayerState.PLAYING;
+    
+    
         const seconds = player.getCurrentTime();
-
+    
         console.log("------------------------------------------------");
         console.log("Reproduciendo", played);
         console.log("Pausando", paused);
         console.log("Segundos", seconds);
         console.log("------------------------------------------------");
-
-        if (paused || played)
+    
+        if (paused || played || ignore_next) {
             socket.emit("video-manager", {paused, played, created_id, seconds})
+            ignore_next = true;
+        }
     }
 
     socket.on(`video-manager-${created_id}`, (data) => {
         if (data.paused) player.stopVideo();
         if (data.played) player.playVideo();
-        player.seekTo(data.seconds);
+        player.playVideoAt(data.seconds);
+        ignore_next = false;
 
     });
 
