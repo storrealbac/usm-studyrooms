@@ -44,6 +44,21 @@ class PomodoroComponent {
         return `${minutes}:${seconds}`
     }
 
+    changeTime(operation, time_type) {
+        switch(time_type) {
+            case "work":
+                this.work_time += operation;
+                break;
+            case "short":
+                this.short_time += operation;
+                break;
+
+            case "long":
+                this.long_time += operation;
+                break;
+        }
+    }
+
     setTime(time) {
 
         switch(time) {
@@ -114,27 +129,44 @@ const deletePomodoro = (id) => {
     document.getElementById(`pomodoro-id-${id}`).remove();
 }
 
+const pomodoroChangeTimer = (id, operation, time_type) => {
+    const element = document.getElementById(`pomodoro-config-${time_type}-id-${id}`);
+
+    if (Number(element.value) > 0) {
+        element.value = Number(element.value) + operation;
+        all_pomodoros[id-1].changeTime(operation, time_type);
+    }
+}
+
 const openPomodoroConfig = (id) => {
     configRoomAlert.fire({
         html: `
-        
         <h1 class="font-staatliches text-3xl m-auto"> CONFIGURACIÓN POMODORO </h1>
         <p class="font-staatliches text-lg m-auto mt-3 mb-3">Editar tiempos. </p>
         <div class="grid grid-cols-3">
             <div>
                 <p class="font-staatliches text-lg m-auto mt-3 mb-3">Work Time</p>
-                <div class="custom-number-input h-10 w-32">
+                <div class="h-10 w-32">
                     <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                         
-                        <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                        <button 
+                            class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                            onclick="pomodoroChangeTimer(${id}, -1, 'work')"
+                        >
                             <span class="m-auto text-2xl font-thin">−</span>
                         </button>
                         
-                        <input type="text" 
-                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0">
-                        </input>
+                            <input type="text" disabled
+                                class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                                value="${all_pomodoros[id-1].work_time}"
+                                id="pomodoro-config-work-id-${id}"
+                            >
+                            </input>
                         
-                        <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                        <button 
+                            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                            onclick="pomodoroChangeTimer(${id}, 1, 'work')"
+                        >
                             <span class="m-auto text-2xl font-thin">+</span>
                         </button>
                     </div>
@@ -142,19 +174,28 @@ const openPomodoroConfig = (id) => {
             </div> 
 
             <div>
-                <p class="font-staatliches text-lg m-auto mt-3 mb-3">Short Break</p>
-                <div class="custom-number-input h-10 w-32">
+                <p class="font-staatliches text-lg m-auto text-center mt-3 mb-3">Short Break</p>
+                <div class="h-10 w-32">
                     <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                         
-                        <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                        <button 
+                            class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                            onclick="pomodoroChangeTimer(${id}, -1, 'short')"
+                        >
                             <span class="m-auto text-2xl font-thin">−</span>
                         </button>
                         
-                        <input type="text" 
-                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0">
+                        <input type="text" disabled
+                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                            value="${all_pomodoros[id-1].short_time}"
+                            id="pomodoro-config-short-id-${id}"
+                        >
                         </input>
                         
-                        <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                        <button 
+                            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                            onclick="pomodoroChangeTimer(${id}, 1, 'short')"
+                        >
                             <span class="m-auto text-2xl font-thin">+</span>
                         </button>
                     </div>
@@ -163,18 +204,27 @@ const openPomodoroConfig = (id) => {
 
             <div>
                 <p class="font-staatliches text-lg m-auto mt-3 mb-3">Long Break</p>
-                <div class="custom-number-input h-10 w-32">
+                <div class="h-10 w-32">
                     <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                         
-                        <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                        <button
+                            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                            onclick="pomodoroChangeTimer(${id}, -1, 'long')"
+                        >
                             <span class="m-auto text-2xl font-thin">−</span>
                         </button>
                         
-                        <input type="text" 
-                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0">
+                        <input type="text" disabled
+                            class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" 
+                            value="${all_pomodoros[id-1].long_time}"
+                            id="pomodoro-config-long-id-${id}"
+                        >
                         </input>
                         
-                        <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                        <button
+                            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                            onclick="pomodoroChangeTimer(${id}, 1, 'long')"
+                        >
                             <span class="m-auto text-2xl font-thin">+</span>
                         </button>
                     </div>
@@ -183,12 +233,6 @@ const openPomodoroConfig = (id) => {
 
             
         </div>
-
-        <label for="toggle-example" class="flex items-center cursor-pointer relative mb-4">
-        <input type="checkbox" id="toggle-example" class="sr-only">
-        <div class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
-        <span class="ml-3 text-gray-900 text-sm font-medium">Toggle me</span>
-        </label>
         `,
     });
 }
