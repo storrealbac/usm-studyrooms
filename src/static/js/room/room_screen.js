@@ -478,7 +478,7 @@ const spawnYoutubeComponent = (youtube_url, created_id) => {
     <div 
         id=${element_id}
         class="fixed bg-color-champagnepink z-10 rounded top-32 left-32"
-        style="width:426px"
+        style="width:720px"
     >
         <div class="w-full bg-color-xanadu rounded-t">
             <h1 class="font-staatliches text-xl text-white m-auto text-center">
@@ -493,7 +493,7 @@ const spawnYoutubeComponent = (youtube_url, created_id) => {
             </button>
         </div>
 
-        <div class="absolute" style="width: 426px; height: 246px; opacity:0;" onclick="changeVideoState(${created_id})"></div>
+        <div class="absolute" style="width: 720px; height: 480px; opacity:0;" onclick="changeVideoState(${created_id})"></div>
         <div id="youtube-video-${created_id}" class="rounded-b"></div>
         
     </div>
@@ -537,10 +537,11 @@ const spawnYoutubeComponent = (youtube_url, created_id) => {
     });
 
     all_youtube_videos[`youtube-video-${created_id}`] = new YT.Player(`youtube-video-${created_id}`, {
-        height: 246,
-        width: 426,
+        height: 480,
+        width: 720,
         volume: 0.5,
         videoId : video_id,
+        playerVars: { "controls": 0 },
         events : {
             "onReady": onPlayerReady,
             "onStateChange": onPlayerStateChange
