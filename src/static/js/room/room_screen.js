@@ -335,7 +335,11 @@ const videos_fondo = [
     "https://thumbs.gfycat.com/DifficultRecklessEidolonhelvum-mobile.mp4",
     "https://thumbs.gfycat.com/ActivePiercingLeech-mobile.mp4",
     "https://thumbs.gfycat.com/FamousCornyAustralianfreshwatercrocodile-mobile.mp4",
-    "https://vod-progressive.akamaized.net/exp=1637797259~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2653%2F14%2F363269983%2F1494223164.mp4~hmac=78ec0927c69486cee964e5bd161a19058d73ab32396d64bf8f2ce9588d7f3a94/vimeo-prod-skyfire-std-us/01/2653/14/363269983/1494223164.mp4?download=1&filename=video.mp4"
+    "https://thumbs.gfycat.com/BoringVacantBrontosaurus-mobile.mp4",
+    "https://thumbs.gfycat.com/BlandQueasyApatosaur-mobile.mp4",
+    "https://thumbs.gfycat.com/GrandImaginativeAfricanwilddog-mobile.mp4",
+    "https://thumbs.gfycat.com/EarnestBaggyGuanaco-mobile.mp4"
+    
 ];
 
 const moveBackgroundVideo = (move) => {
@@ -662,25 +666,18 @@ const barraSuperiorComponent = () =>  {
                         <button onclick="changeVideo(5)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
                             5
                         </button>
+                        <button onclick="changeVideo(6)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            6
+                        </button>
+                        <button onclick="changeVideo(7)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
+                            7
+                        </button>
+
                         <button onclick="moveBackgroundVideo(1)" class="px-4 py-2 text-color-xanadu bg-color-champagnepink rounded-md hover:bg-color-xanadu hover:text-color-champagnepink">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
                         </button>
-                    </div>
-
-
-                    <p class="font-staatliches text-lg m-auto mt-6 mb-3"> Cambiar cantidad de personas: </p>
-
-                    <div class="relative inline-block text-left">
-                        <div>
-                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-color-champagnepink text-sm font-medium text-color-xanadu hover:bg-color-xanadu hover:text-color-champagnepink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 mb-4" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                            Cantidad
-                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                            </button>
-                        </div>
                     </div>
                 `,
             });
