@@ -98,15 +98,18 @@
     <!-- Draggable div (Pendientes) -->
     <div 
         id="pending-dragdiv"
-        class="fixed bg-color-champagnepink pb-2 w-96 h-96 z-10 rounded top-1/2 right-0"
+        class="fixed bg-color-champagnepink pb-2 h-96 overflow-auto w-96 z-10 rounded top-1/2 right-0 overflow-auto"
+        x-data="pendingList()"
+        x-show="show_pending"
     >
         <div class="w-full bg-color-xanadu rounded-t">
             <h1 class="font-staatliches text-xl text-white m-auto text-center">
                 Pendientes
             </h1>
 
+
             <!-- Cerrar -->
-            <button class="absolute top-1 right-1">
+            <button class="absolute top-1 right-1" @click="show_pending = false">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -114,25 +117,64 @@
         </div>
 
         <div class="grid grid-cols-1">
-            <!-- Caja de todo list -->
-            <div class="grid grid-cols-1 bg-white m-1 pt-2 pb-2 rounded">
-                <div class="grid grid-cols-12">
-                    <input
-                        type="checkbox"
-                        class="col-span-2 m-auto"
-                    ></input>
-                    <h1 class="col-span-8 text-color-xanadu">Lorem ipsum dolor sit amet</h1>
-                    <h1 class="col-span-1">
-                        <!-- Icono de basura-->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                    </h1>
-                </div>
-            </div>
 
+            <input 
+                type="text"
+                onclick="focus()"
+                class="m-1 text-lg rounded pl-5"
+                placeholder="Escriba su tarea aquí"
+                x-model="writted_task"
+                x-on:keydown.enter="addTask()"
+                x-on:keydown.enter.prevent
+            >
+            
+
+            <template x-if="tasks.length > 0">
+                <!-- Caja de todo list -->
+                <div class="grid grid-cols-1 rounded">
+                <!-- Las tareas -->
+                    <template x-for="task in tasks">
+                        <div class="grid grid-cols-12 bg-white pt-2 pb-2 m-1">
+
+                            <input
+                                type="checkbox"
+                                class="col-span-2 m-auto"
+                                @click="checkTask(task.id)"
+                            ></input>
+                            <template x-if="task.active">
+                                <h1 x-text="task.txt" class="col-span-8 text-color-xanadu "></h1>
+                            </template>
+
+                            <template x-if="task.active == false">
+                                <h1 x-text="task.txt" class="col-span-8 text-color-xanadu line-through"></h1>
+                            </template>
+
+                            <h1 class="col-span-1">
+                                <!-- Icono de basura-->
+                                <svg 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-6 w-6 text-red-700 cursor-pointer"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    @click="removeTask(task.id)"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </h1>
+                    </template>
+                </div>
+            </template>
         </div>
+        
+
     </div>
+    
+    
 
     <!-- Draggable div (Spotify playlist) -->
     <div 

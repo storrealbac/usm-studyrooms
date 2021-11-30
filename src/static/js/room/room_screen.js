@@ -16,7 +16,8 @@ socket.on("video-delete", (data) => {
 // Estado global (componente global)
 const globalComponent = () => {
     return {
-        show_spotifyplaylist: false
+        show_spotifyplaylist: false,
+        show_pending: false
     }
 }
 
@@ -498,8 +499,7 @@ const spawnYoutubeComponent = (youtube_url, created_id) => {
         
     </div>
     `;
-    //w426 w246 class="rounded-b" allowfullscreen frameborder="0"
-    // Add element to the DOM
+
     document.body.insertAdjacentHTML('beforeend', html_code);
 
     var onPlayerReady = (event) => {
@@ -625,57 +625,11 @@ const barraSuperiorComponent = () =>  {
         },
 
         onPomodoroClick() {
-            youtubeRoomAlert.fire({
-                html: `
-                
-                <h1 class="font-staatliches text-3xl m-auto"> SELECCIONES TIPO </h1>
-                <p> Debe seleccionar si quiere que el pomodoro sea personal o compartido.</p>
-                <div class="grid grid-cols-2 mt-3 mb-3">    
-                    <div>
-                        <p class="text-lg font-bold">Individual</p>
-                        <input 
-                            type="checkbox"
-                            checked
-                            class="m-auto"
-                            id="create-pomodoro-checkbox-1"
-                            onclick="changeStateChecked('create-pomodoro-checkbox-2')"
-                        >
-                        </input>
-                    </div>
-                    <div>
-                        <p class="text-lg font-bold">Grupal</p>
-                        <input 
-                            type="checkbox"
-                            class="m-auto"
-                            id="create-pomodoro-checkbox-2"
-                            onclick="changeStateChecked('create-pomodoro-checkbox-1')"
-                        >
-                        </input>
-                    </div>
-                </div>
-
-                <p class="italic text-center text-sm">Por defecto será individual.</p>                
-                `,
-                confirmButtonText: "Aceptar",
-                preConfirm: async () => {
-
-                    const individual  = document.getElementById("create-pomodoro-checkbox-1").checked;
-
-                    if (individual) {
-                        // individual
-                        createPomodoro()
-
-                    } else {
-                        // grupal
-                    }
-                    
-                }
-            });
+            createPomodoro()
         },
 
         onPendingClick() {
-            alert("Tocaste pending")
-
+            this.show_pending = !this.show_pending;
         },
 
         onConfigClick() {
@@ -734,6 +688,35 @@ const barraSuperiorComponent = () =>  {
     }
 }
 
+const pendingList = () =>{
+    return {
+        tasks: [],
+        writted_task: "",
+        addTask() {
+            if (this.writted_task == "")
+                return;
+
+            this.tasks.push({
+                id: Date.now(),
+                txt: this.writted_task,
+                active: true
+            });
+
+            this.writted_task = "";
+        },
+        removeTask(id) {
+            for (let i = 0; i < this.tasks.length; i++)
+                if (this.tasks[i].id == id)
+                    this.tasks.splice(i, 1);
+        },
+
+        checkTask(id) {
+            for (let i = 0; i < this.tasks.length; i++)
+                if (this.tasks[i].id == id)
+                    this.tasks[i].active = !this.tasks[i].active; 
+        }
+    }
+}
 
 /* Drag elements */
 dragElement(document.getElementById("spotify-dragdiv"))
